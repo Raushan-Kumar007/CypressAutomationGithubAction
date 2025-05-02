@@ -1,12 +1,17 @@
-# Node dependencies
+# Node modules
 node_modules/
 
-# Cypress test outputs
-cypress/videos/
+# Cypress screenshots and videos
 cypress/screenshots/
+cypress/videos/
 
-# Environment secrets
+# Cypress environment files
 .env
 cypress.env.json
-# private key for the server
+
+# OS or editor files
+.DS_Store
+.vscode/
+
+# Custom folders that may store secrets
 server.key
