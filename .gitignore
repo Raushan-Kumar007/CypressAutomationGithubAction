@@ -7,5 +7,6 @@ cypress/screenshots/
 
 # Environment secrets
 .env
+cypress.env.json
 # private key for the server
 server.key
