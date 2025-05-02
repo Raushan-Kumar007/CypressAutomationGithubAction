@@ -13,5 +13,9 @@ module.exports = defineConfig({
       });
       return config;
     }
+  },
+  env: {
+    SF_CLIENT_ID: process.env.SF_CLIENT_ID,
+    SF_USERNAME: process.env.SF_USERNAME
   }
 });
