@@ -1,0 +1,47 @@
+# Name of the GitHub Actions workflow (you’ll see this in the Actions tab)
+name: Cypress CI
+
+# This workflow runs on every push or pull request to the master branch
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  cypress-run:                         # A single job named "cypress-run"
+    runs-on: ubuntu-latest            # The job runs on the latest Ubuntu Linux VM
+
+    steps:
+      - name: ⬇️ Checkout code
+        uses: actions/checkout@v3     # This action checks out your repository’s code
+
+      - name: ⚙️ Setup Node.js
+        uses: actions/setup-node@v3   # Sets up a Node.js environment for Cypress
+        with:
+          node-version: 18            # Specifies Node.js version (adjust as needed)
+
+      - name: 📦 Install dependencies
+        run: npm install              # Installs dependencies from package.json
+
+      - name: 🔐 Restore `server.key` file
+        run: |
+          mkdir -p cypress/secure     # Creates the secure folder (if not already there)
+          echo "${{ secrets.SERVER_KEY }}" > cypress/secure/server.key
+        # This retrieves the secure key content from GitHub Secrets
+        # and writes it to a file in the secure folder
+
+      - name: 🧪 Run Cypress Tests
+        run: npx cypress run          # Runs all Cypress tests in headless mode
+        env:
+          SF_CLIENT_ID: ${{ secrets.SF_CLIENT_ID }}     # Salesforce client ID
+          SF_USERNAME: ${{ secrets.SF_USERNAME }}       # Salesforce username
+
+      - name: 📤 Upload Cypress test artifacts on failure
+        if: failure()                 # This step runs only if tests fail
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-artifacts     # Name of the artifact bundle
+          path: |
+            cypress/screenshots       # Upload screenshots (only if test fails)
+            cypress/videos            # Upload videos of failed tests
