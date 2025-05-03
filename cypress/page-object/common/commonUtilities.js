@@ -9,7 +9,15 @@ class commonUtilities {
         .toString(36)
         .slice(2, 2 + length);
     }
-  
+
+     /**
+   * This function generates a random email address
+   * @returns {string} returns a unique random email address
+   */
+   getRandomEmail() {
+    const randomString = Math.random().toString(36).substring(2, 10);
+    return `testuser_${randomString}@example.com`;
+  }
     /**
      * This function generate random 10 digits number
      * @returns {number} returns 10 digits random number
