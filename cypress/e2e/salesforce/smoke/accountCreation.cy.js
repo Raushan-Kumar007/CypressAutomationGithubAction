@@ -1,5 +1,5 @@
 import HomePage from '../../../page-object/common/homePage';
-import AccountCreationPage from '../../../page-object/salesforce/accountCreationPage';
+import AccountCreationPage from '../../../page-object/salesforce/account/accountCreationPage';
 import CommonUtilities from '../../../page-object/common/commonUtilities';
 
 before('Login to Salesforce', () => {

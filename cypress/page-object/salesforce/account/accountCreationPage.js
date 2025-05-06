@@ -1,5 +1,5 @@
-import AssertText from "../../utils/assert";
-import Element from "../../utils/element";
+import AssertText from "../../../utils/assert";
+import Element from "../../../utils/element";
 const assert = new AssertText();
 const elementExist = new Element();
 class AccountCreationPage{
