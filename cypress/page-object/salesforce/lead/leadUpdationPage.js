@@ -25,14 +25,7 @@ class LeadUpdationPage{
         elementExist.click(this.detailPageshowMoreActions, true, true);
         elementExist.click(this.detailPageEdit, true, true);
     }
-    editFieldOfLead(salutation,firstName,lastName,company,leadStatus,phone,email,leadSource,rating,industry){
-        cy.selectSalesforcePicklist(
-            leadCreation.leadSalutation,
-            ['Mr.', 'Ms.', 'Mrs.','Dr.','Prof.','Mx.'],
-            salutation
-        )
-        elementExist.type(leadCreation.leadFirstName, firstName, true, false, false, true);
-        elementExist.type(leadCreation.leadLastName, lastName, true, false, false, true);
+    editFieldOfLead(company,leadStatus,phone,email,leadSource,rating,industry){
         elementExist.type(leadCreation.leadCompany,company, true, false, false, true);
         elementExist.type(leadCreation.leadPhone,phone, true, false, false, true);
         elementExist.type(leadCreation.leadEmail,email, true, false, false, true);

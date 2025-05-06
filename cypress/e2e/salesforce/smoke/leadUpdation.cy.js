@@ -12,8 +12,6 @@ describe('Salesforce Smoke Test - Lead Updation', () => {
     let firstName, lastName, company, leadStatus, salutation,phone,email,leadSource,rating,industry;
   
     beforeEach(() => {
-      firstName = 'Test Lead';
-      lastName = commonUtilities.genericRandomText(5, 8);
       company = commonUtilities.genericRandomText(5, 8);
       leadStatus = 'Working - Contacted';
       salutation = 'Dr.';
@@ -25,7 +23,7 @@ describe('Salesforce Smoke Test - Lead Updation', () => {
     });
     it('Navigate to Lead and create new Lead', () => {
         homePage.clickOnSelectedApp('Leads');
-        leadUpdationPage.updateLeadPage('Bean');
-        leadUpdationPage.editFieldOfLead(salutation,firstName,lastName,company,leadStatus,phone,email,leadSource,rating,industry);
+        leadUpdationPage.updateLeadPage('Bunny');
+        leadUpdationPage.editFieldOfLead(company,leadStatus,phone,email,leadSource,rating,industry);
     });
 });
