@@ -16,3 +16,8 @@
 // Import commands.js using ES2015 syntax:
 import 'cypress-xpath';
 import './commands'
+Cypress.on('uncaught:exception', (err) => {
+    if (err.message.includes('Symbol(ERR_PREPARED_FOR_SERIALIZATION)')) {
+      return false; // Prevent test from failing
+    }
+  });
