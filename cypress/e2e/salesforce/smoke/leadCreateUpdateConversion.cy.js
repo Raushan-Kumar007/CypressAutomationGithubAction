@@ -1,22 +1,23 @@
 import HomePage from '../../../page-object/common/homePage';
+import LeadCreationPage from '../../../page-object/salesforce/lead/leadCreationPage';
 import LeadUpdationPage from '../../../page-object/salesforce/lead/leadUpdationPage';
 import CommonUtilities from '../../../page-object/common/commonUtilities';
 
-describe('Salesforce Smoke Test - Lead Updation', () => {
+describe('Salesforce Smoke Test - Lead Creation, Update, and Conversion', () => {
   const homePage = new HomePage();
+  const leadCreationPage = new LeadCreationPage();
   const leadUpdationPage = new LeadUpdationPage();
   const commonUtilities = new CommonUtilities();
 
-  const leadName = 'Test Lead gd06a'; 
-
-  let company, leadStatus, salutation, phone, email, leadSource, rating, industry;
+  let firstName, lastName, company, leadStatus, salutation, phone, email, leadSource, rating, industry, leadName;
 
   before(() => {
     cy.loginToSalesforceJWT(Cypress.env('SF_USERNAME'));
   });
 
-  beforeEach(() => {
-    // Reset test data for each case
+  before(() => {
+    firstName = 'Test Lead';
+    lastName = commonUtilities.genericRandomText(5, 8);
     company = commonUtilities.genericRandomText(5, 8);
     leadStatus = 'Working - Contacted';
     salutation = 'Dr.';
@@ -25,15 +26,32 @@ describe('Salesforce Smoke Test - Lead Updation', () => {
     leadSource = 'Web';
     rating = 'Hot';
     industry = 'Agriculture';
+    leadName = `${firstName} ${lastName}`;
   });
 
-  it('Navigate to Created Lead and update the Lead Field', () => {
+  it('Create a new Lead', () => {
+    homePage.clickOnSelectedApp('Leads');
+    leadCreationPage.createNewLead(
+      salutation,
+      firstName,
+      lastName,
+      company,
+      leadStatus,
+      phone,
+      email,
+      leadSource,
+      rating,
+      industry
+    );
+  });
+
+  it('Update the Lead fields', () => {
     homePage.clickOnSelectedApp('Leads');
     leadUpdationPage.updateLeadPage(leadName);
     leadUpdationPage.editFieldOfLead(company, leadStatus, phone, email, leadSource, rating, industry);
   });
 
-  it('Navigate to Created Lead and convert the Lead', () => {
+  it('Convert the Lead', () => {
     homePage.clickOnSelectedApp('Leads');
     leadUpdationPage.leadConvertPageWithOpp(leadName);
   });

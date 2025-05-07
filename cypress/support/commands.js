@@ -50,7 +50,7 @@ Cypress.Commands.add('loginToSalesforceJWT', (username) => {
       });
     });
   });
-  Cypress.Commands.add('selectSalesforcePicklist', (xpathToPicklistButton, expectedValues, valueToSelect) => {
+ Cypress.Commands.add('selectSalesforcePicklist', (xpathToPicklistButton, expectedValues, valueToSelect) => {
     // Click the picklist button
     cy.xpath(xpathToPicklistButton)
       .click({ force: true });
