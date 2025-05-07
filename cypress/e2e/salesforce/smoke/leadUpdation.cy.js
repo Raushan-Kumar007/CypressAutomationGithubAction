@@ -7,15 +7,16 @@ describe('Salesforce Smoke Test - Lead Updation', () => {
   const leadUpdationPage = new LeadUpdationPage();
   const commonUtilities = new CommonUtilities();
 
-  const leadName = 'Test Lead 9xerj'; // 🔒 Static name
+  const leadName = 'Test Lead gd06a'; 
 
   let company, leadStatus, salutation, phone, email, leadSource, rating, industry;
 
-  beforeEach(() => {
+  before(() => {
     cy.loginToSalesforceJWT(Cypress.env('SF_USERNAME'));
   });
 
   beforeEach(() => {
+    // Reset test data for each case
     company = commonUtilities.genericRandomText(5, 8);
     leadStatus = 'Working - Contacted';
     salutation = 'Dr.';
