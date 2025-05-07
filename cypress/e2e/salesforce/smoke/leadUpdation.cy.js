@@ -23,11 +23,11 @@ describe('Salesforce Smoke Test - Lead Updation', () => {
     });
     it('Navigate to Created Lead and update the Lead Field', () => {
         homePage.clickOnSelectedApp('Leads');
-        leadUpdationPage.updateLeadPage('su3 fuoz');
+        leadUpdationPage.updateLeadPage('Test Lead kb38t');
         leadUpdationPage.editFieldOfLead(company,leadStatus,phone,email,leadSource,rating,industry);
     });
     it('Navigate to Created Lead and convert the Lead', () => {
         homePage.clickOnSelectedApp('Leads');
-        leadUpdationPage.leadConvertPageWithOpp('su3 fuoz');
+        leadUpdationPage.leadConvertPageWithOpp('Test Lead kb38t');
     });
 });
