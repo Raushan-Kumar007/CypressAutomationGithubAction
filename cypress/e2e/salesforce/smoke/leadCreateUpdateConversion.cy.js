@@ -12,10 +12,6 @@ describe('Salesforce Smoke Test - Lead Creation, Update, and Conversion', () => 
   let firstName, lastName, company, leadStatus, salutation, phone, email, leadSource, rating, industry, leadName;
 
   before(() => {
-    cy.loginToSalesforceJWT(Cypress.env('SF_USERNAME'));
-  });
-
-  before(() => {
     firstName = 'Test Lead';
     lastName = commonUtilities.genericRandomText(5, 8);
     company = commonUtilities.genericRandomText(5, 8);
@@ -27,6 +23,7 @@ describe('Salesforce Smoke Test - Lead Creation, Update, and Conversion', () => 
     rating = 'Hot';
     industry = 'Agriculture';
     leadName = `${firstName} ${lastName}`;
+    cy.loginToSalesforceJWT(Cypress.env('SF_USERNAME'));
   });
 
   it('Create a new Lead', () => {
@@ -46,13 +43,12 @@ describe('Salesforce Smoke Test - Lead Creation, Update, and Conversion', () => 
   });
 
   it('Update the Lead fields', () => {
-    homePage.clickOnSelectedApp('Leads');
-    leadUpdationPage.updateLeadPage(leadName);
+    cy.navigateToSalesforceRecord('Lead', 'Name', leadName);
     leadUpdationPage.editFieldOfLead(company, leadStatus, phone, email, leadSource, rating, industry);
   });
 
   it('Convert the Lead', () => {
-    homePage.clickOnSelectedApp('Leads');
+    cy.navigateToSalesforceRecord('Lead', 'Name', leadName);
     leadUpdationPage.leadConvertPageWithOpp(leadName);
   });
 });

@@ -1,28 +1,5 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+let sfAccessToken = null;
+let sfInstanceUrl = null;
 Cypress.Commands.add('loginToSalesforceJWT', (username) => {
     const clientId = Cypress.env('SF_CLIENT_ID');
     cy.task('generateJWT', { username, clientId }).then((jwtToken) => {
@@ -39,7 +16,8 @@ Cypress.Commands.add('loginToSalesforceJWT', (username) => {
   
         const accessToken = response.body.access_token;
         const instanceUrl = response.body.instance_url;
-  
+        sfAccessToken = accessToken;
+        sfInstanceUrl = instanceUrl;
         cy.setCookie('sid', accessToken, {
           domain: '.salesforce.com',
           secure: true,
@@ -51,20 +29,49 @@ Cypress.Commands.add('loginToSalesforceJWT', (username) => {
     });
   });
  Cypress.Commands.add('selectSalesforcePicklist', (xpathToPicklistButton, expectedValues, valueToSelect) => {
-    // Click the picklist button
     cy.xpath(xpathToPicklistButton)
       .click({ force: true });
-  
-    // Verify all options are present
     cy.xpath('//div//lightning-base-combobox-item')
       .should('have.length.at.least', expectedValues.length)
       .then(items => {
         const actualValues = [...items].map(el => el.innerText.trim());
         expect(actualValues).to.include.members(expectedValues);
       });
-  
-    // Click the value you want to select
     cy.xpath('//div//lightning-base-combobox-item')
       .contains(valueToSelect)
       .click({ force: true });
+  });
+  Cypress.Commands.add('navigateToSalesforceRecord', (objectName, field, value) => {
+    const accessToken = sfAccessToken;
+    const instanceUrl = sfInstanceUrl;
+  
+    if (!accessToken || !instanceUrl) {
+      throw new Error('Salesforce access token or instance URL not set. Run loginToSalesforceJWT first.');
+    }
+  
+    const soql = `SELECT Id FROM ${objectName} WHERE ${field} = '${value}' LIMIT 1`;
+    const queryUrl = `${instanceUrl}/services/data/v58.0/query?q=${encodeURIComponent(soql)}`;
+    const domain = new URL(instanceUrl).hostname;
+  
+    return cy.request({
+      method: 'GET',
+      url: queryUrl,
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }).then((queryResponse) => {
+      if (queryResponse.body.records.length === 0) {
+        throw new Error(`No ${objectName} found where ${field} = '${value}'`);
+      }
+  
+      const recordId = queryResponse.body.records[0].Id;
+      const recordUrl = `${instanceUrl}/lightning/r/${objectName}/${recordId}/view`;
+  
+      cy.setCookie('sid', accessToken, {
+        domain: domain,
+        secure: true,
+        httpOnly: false,
+      });
+      cy.visit(recordUrl);
+    });
   });

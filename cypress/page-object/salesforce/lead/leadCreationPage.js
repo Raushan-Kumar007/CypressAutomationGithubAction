@@ -7,7 +7,7 @@ class LeadCreationPage {
     leadSalutation = "//div/button[@name='salutation']";
     leadFirstName = "//input[@placeholder='First Name']";
     leadLastName = "//input[@placeholder='Last Name']";
-    leadCompany = "//input[@name='Company']";
+    leadCompany = "//div/input[@name='Company']";
     leadSourceField = "//div/button[@aria-label='Lead Source']";
     leadIndustry = "//div/button[@aria-label='Industry']";
     leadStatusField = "//div/button[@aria-label='Lead Status']";

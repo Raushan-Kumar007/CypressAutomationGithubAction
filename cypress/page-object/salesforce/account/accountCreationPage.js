@@ -15,7 +15,7 @@ class AccountCreationPage{
     closeErrorDialog = "//button[@title='Close error dialog']";
     closeNewAccountWindow = "//button[@title='Cancel and close']";
     phoneField = "//div/input[@name='Phone']";
-    createNewAccount(accountName, phoneNumber, ratingValue,OwnershipValue,accountNumber) {
+    createNewAccount(accountName, phoneNumber, ratingValue,OwnershipValue) {
         elementExist.click(this.accountsTab, true, true);
         elementExist.click(this.newAccountButton, true, true);
         elementExist.type(this.accountNameBox, accountName, true, false, false, true);

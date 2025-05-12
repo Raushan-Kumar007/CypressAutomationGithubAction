@@ -19,55 +19,68 @@ class LeadUpdationPage{
     verifyLeadConversionHeading = "//h2[text()='Your lead has been converted']";
     navigateToLeadButton = "//button[text()='Go to Leads']";
     verifyRecentList = "//h1//span[text()='Recently Viewed']";
-      updateLeadPage(leadName) {
-        elementExist.click(this.leadListView, true, true);
-        elementExist.click(this.selectListView, true, true);
-        assert.have(this.verifyListViewType, 'All Open Leads', true);
-        elementExist.click(this.searchBox, true, true);
-        elementExist.type(this.searchBox, leadName+"{Enter}",false, true, true, true);
-        const leadSelector = `//th//a[@title='${leadName}']`;
-        assert.have(leadSelector, leadName, true);
-        assert.contains(this.verifyListItems, '1 item', true);
-        elementExist.click(leadSelector, true, true);
+    verifyEditPage = "//div/h2[contains(text(),'Edit')]";
+    editFieldOfLead(company, leadStatus, phone, email, leadSource, rating, industry) {
         elementExist.click(this.detailPageshowMoreActions, true, true);
         elementExist.click(this.detailPageEdit, true, true);
-    }
-    editFieldOfLead(company,leadStatus,phone,email,leadSource,rating,industry){
-        elementExist.type(leadCreation.leadCompany,company, true, false, false, true);
-        elementExist.type(leadCreation.leadPhone,phone, true, false, false, true);
-        elementExist.type(leadCreation.leadEmail,email, true, false, false, true);
-        cy.selectSalesforcePicklist(
-            leadCreation.leadStatusField,
-            ['Open - Not Contacted','Working - Contacted','Closed - Converted','Closed - Not Converted'],
-            leadStatus
-        );
-        cy.selectSalesforcePicklist(
-            leadCreation.leadSourceField,
-            ['Web','Phone Inquiry','Partner Referral','Purchased List','Other'],
-            leadSource
-        );
-        cy.selectSalesforcePicklist(
-            leadCreation.leadRating,
-            ['Hot','Warm','Cold'],
-            rating
-        );
-        cy.selectSalesforcePicklist(
-            leadCreation.leadIndustry,
-            ['Agriculture','Apparel','Banking','Biotechnology','Chemicals'],
-            industry
-        ); 
+        assert.contains(this.verifyEditPage, 'Edit', true);
+    
+        if (company) {
+            elementExist.type(leadCreation.leadCompany, `${company} Pvt Ltd`, true, true, false, true);
+        }
+    
+        if (phone) {
+            elementExist.type(leadCreation.leadPhone, `${phone}789`, true, true, false, true);
+        }
+        if (email) {
+            const dummyEmail = `${email.toLowerCase().replace(/[^a-z0-9]/g, '')}@demo.com`;
+            elementExist.type(leadCreation.leadEmail, dummyEmail, true, true, false, true);
+        }        
+        if (leadStatus) {
+            cy.selectSalesforcePicklist(
+                leadCreation.leadStatusField,
+                ['Open - Not Contacted', 'Working - Contacted', 'Closed - Converted', 'Closed - Not Converted'],
+                leadStatus || 'Working - Contacted'
+            );
+        }
+    
+        if (leadSource) {
+            cy.selectSalesforcePicklist(
+                leadCreation.leadSourceField,
+                ['Web', 'Phone Inquiry', 'Partner Referral', 'Purchased List', 'Other'],
+                leadSource || 'Web'
+            );
+        }
+    
+        if (rating) {
+            cy.selectSalesforcePicklist(
+                leadCreation.leadRating,
+                ['Hot', 'Warm', 'Cold'],
+                rating || 'Hot'
+            );
+        }
+    
+        if (industry) {
+            cy.selectSalesforcePicklist(
+                leadCreation.leadIndustry,
+                ['Agriculture', 'Apparel', 'Banking', 'Biotechnology', 'Chemicals'],
+                industry || 'Banking'
+            );
+        }
+    
         elementExist.click(leadCreation.saveButton, true, true);
-    }
+    }    
+    
     leadConvertPageWithOpp(leadName){
-        elementExist.click(this.leadListView, true, true);
-        elementExist.click(this.selectListView, true, true);
-        assert.have(this.verifyListViewType, 'All Open Leads', true);
-        elementExist.click(this.searchBox, true, true);
-        elementExist.type(this.searchBox, leadName+"{Enter}",false, true, true, true);
-        const leadSelector = `//th//a[@title='${leadName}']`;
-        assert.have(leadSelector, leadName, true);
-        assert.contains(this.verifyListItems, '1 item', true);
-        elementExist.click(leadSelector, true, true);
+       // elementExist.click(this.leadListView, true, true);
+       // elementExist.click(this.selectListView, true, true);
+       // assert.have(this.verifyListViewType, 'All Open Leads', true);
+       // elementExist.click(this.searchBox, true, true);
+       // elementExist.type(this.searchBox, leadName+"{Enter}",false, true, true, true);
+       // const leadSelector = `//th//a[@title='${leadName}']`;
+       // assert.have(leadSelector, leadName, true);
+      //  assert.contains(this.verifyListItems, '1 item', true);
+       // elementExist.click(leadSelector, true, true);
         elementExist.click(this.convertLeadPath, true, true);
         elementExist.click(this.clickOnConvertStatus, true, true);
         assert.contains(this.verifyLeadConversionTitle, 'Convert Lead', true);
