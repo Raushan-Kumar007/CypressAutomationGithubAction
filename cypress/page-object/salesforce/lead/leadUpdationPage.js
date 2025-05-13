@@ -72,20 +72,12 @@ class LeadUpdationPage{
     }    
     
     leadConvertPageWithOpp(leadName){
-       // elementExist.click(this.leadListView, true, true);
-       // elementExist.click(this.selectListView, true, true);
-       // assert.have(this.verifyListViewType, 'All Open Leads', true);
-       // elementExist.click(this.searchBox, true, true);
-       // elementExist.type(this.searchBox, leadName+"{Enter}",false, true, true, true);
-       // const leadSelector = `//th//a[@title='${leadName}']`;
-       // assert.have(leadSelector, leadName, true);
-      //  assert.contains(this.verifyListItems, '1 item', true);
-       // elementExist.click(leadSelector, true, true);
+        cy.navigateToSalesforceRecord('Lead', 'Name', leadName);
         elementExist.click(this.convertLeadPath, true, true);
         elementExist.click(this.clickOnConvertStatus, true, true);
         assert.contains(this.verifyLeadConversionTitle, 'Convert Lead', true);
         elementExist.click(this.convertLeadButton, true, true);
-        //assert.have(this.verifyLeadConversionHeading, 'Your lead has been converted', true);
+        assert.have(this.verifyLeadConversionHeading, 'Your lead has been converted', true);
         elementExist.click(this.navigateToLeadButton, true, true);
         assert.have(this.verifyRecentList, 'Recently Viewed', true);
     }

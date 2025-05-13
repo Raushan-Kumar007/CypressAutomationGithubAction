@@ -48,7 +48,6 @@ describe('Salesforce Smoke Test - Lead Creation, Update, and Conversion', () => 
   });
 
   it('Convert the Lead', () => {
-    cy.navigateToSalesforceRecord('Lead', 'Name', leadName);
     leadUpdationPage.leadConvertPageWithOpp(leadName);
   });
 });
