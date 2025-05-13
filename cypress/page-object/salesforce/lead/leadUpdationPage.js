@@ -71,7 +71,7 @@ class LeadUpdationPage{
         elementExist.click(leadCreation.saveButton, true, true);
     }    
     
-    leadConvertPageWithOpp(leadName){
+/*    leadConvertPageWithOpp(leadName){
         cy.navigateToSalesforceRecord('Lead', 'Name', leadName);
         elementExist.click(this.convertLeadPath, true, true);
         elementExist.click(this.clickOnConvertStatus, true, true);
@@ -81,5 +81,6 @@ class LeadUpdationPage{
         elementExist.click(this.navigateToLeadButton, true, true);
         assert.have(this.verifyRecentList, 'Recently Viewed', true);
     }
+*/
 }
 export default LeadUpdationPage; 
