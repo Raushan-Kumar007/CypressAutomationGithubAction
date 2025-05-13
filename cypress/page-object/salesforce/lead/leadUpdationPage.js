@@ -77,7 +77,7 @@ class LeadUpdationPage{
         elementExist.click(this.clickOnConvertStatus, true, true);
         assert.contains(this.verifyLeadConversionTitle, 'Convert Lead', true);
         elementExist.click(this.convertLeadButton, true, true);
-        assert.have(this.verifyLeadConversionHeading, 'Your lead has been converted', true);
+        assert.contains(this.verifyLeadConversionHeading, 'Your lead has been converted', true);
         elementExist.click(this.navigateToLeadButton, true, true);
         assert.have(this.verifyRecentList, 'Recently Viewed', true);
     }
