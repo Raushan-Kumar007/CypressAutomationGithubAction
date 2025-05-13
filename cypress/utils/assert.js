@@ -10,13 +10,23 @@ class AssertText {
      * @param {string} text  text should be an string used to check whether exists or not
      * @param {boolean} visible Default is true. If false it will check element is exists or not using should(exist)
      */
-    have(ele, text, visible = true) {
+    /*have(ele, text, visible = true) {
       if (visible) {
         cy.xpath(ele).should("be.visible");
       } else {
         cy.xpath(ele).should("exist");
       }
       cy.xpath(ele).should("have.text", text);
+    }
+    */
+   have(ele, text, visible = true, timeout = 10000) {
+      const el = cy.xpath(ele, { timeout });
+      if (visible) {
+        el.should("be.visible");
+      } else {
+        el.should("exist");
+      }
+      el.should("have.text", text);
     }
   
     /**
