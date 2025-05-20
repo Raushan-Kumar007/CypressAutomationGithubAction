@@ -23,10 +23,11 @@ describe('Salesforce Smoke Test - Lead Creation, Update, and Conversion', () => 
     rating = 'Hot';
     industry = 'Agriculture';
     leadName = `${firstName} ${lastName}`;
-    cy.loginToSalesforceJWT(Cypress.env('SF_USERNAME'));
+    //cy.loginToSalesforceJWT(Cypress.env('SF_USERNAME'));
   });
 
   it('Create a new Lead', () => {
+    cy.loginToSalesforceJWT('frank123@gmail.com');
     homePage.clickOnSelectedApp('Leads');
     leadCreationPage.createNewLead(
       salutation,
@@ -43,7 +44,8 @@ describe('Salesforce Smoke Test - Lead Creation, Update, and Conversion', () => 
   });
 
   it('Update the Lead fields', () => {
-    cy.navigateToSalesforceRecord('Lead', 'Name', leadName);
+   cy.loginToSalesforceJWT('developerorg1999@gmail.com');
+   cy.navigateToSalesforceRecord('Lead', 'Name', leadName);
     leadUpdationPage.editFieldOfLead(company, leadStatus, phone, email, leadSource, rating, industry);
   });
 /*

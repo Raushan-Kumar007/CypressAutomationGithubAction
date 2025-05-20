@@ -20,7 +20,9 @@ class LeadUpdationPage{
     navigateToLeadButton = "//button[text()='Go to Leads']";
     verifyRecentList = "//h1//span[text()='Recently Viewed']";
     verifyEditPage = "//div/h2[contains(text(),'Edit')]";
+    verifyLeadDetailPage = "//records-entity-label[@slot='entityLabel']";
     editFieldOfLead(company, leadStatus, phone, email, leadSource, rating, industry) {
+        cy.xpath(this.verifyLeadDetailPage).should('be.visible');
         elementExist.click(this.detailPageshowMoreActions, true, true);
         elementExist.click(this.detailPageEdit, true, true);
         assert.contains(this.verifyEditPage, 'Edit', true);
