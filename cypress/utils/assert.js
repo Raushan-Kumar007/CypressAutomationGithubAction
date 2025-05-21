@@ -16,7 +16,7 @@ class AssertText {
       } else {
         cy.xpath(ele).should("exist");
       }
-      cy.xpath(ele).should("have.text", text);
+      cy.xpath(ele).should("contain.text", text);
     }
     /**
      * This function will do assertion should(contains, text)

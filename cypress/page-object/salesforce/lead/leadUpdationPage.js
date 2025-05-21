@@ -73,16 +73,16 @@ class LeadUpdationPage{
         elementExist.click(leadCreation.saveButton, true, true);
     }    
     
-/*    leadConvertPageWithOpp(leadName){
+    leadConvertPageWithOpp(leadName){
         cy.navigateToSalesforceRecord('Lead', 'Name', leadName);
         elementExist.click(this.convertLeadPath, true, true);
         elementExist.click(this.clickOnConvertStatus, true, true);
-        assert.contains(this.verifyLeadConversionTitle, 'Convert Lead', true);
+        assert.contains(this.verifyLeadConversionTitle, 'Convert Lead ', true);
+        cy.wait(2000);
         elementExist.click(this.convertLeadButton, true, true);
         assert.have(this.verifyLeadConversionHeading, 'Your lead has been converted', true);
         elementExist.click(this.navigateToLeadButton, true, true);
         assert.have(this.verifyRecentList, 'Recently Viewed', true);
     }
-*/
 }
 export default LeadUpdationPage; 

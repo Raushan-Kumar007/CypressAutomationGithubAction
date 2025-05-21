@@ -48,9 +48,8 @@ describe('Salesforce Smoke Test - Lead Creation, Update, and Conversion', () => 
    cy.navigateToSalesforceRecord('Lead', 'Name', leadName);
     leadUpdationPage.editFieldOfLead(company, leadStatus, phone, email, leadSource, rating, industry);
   });
-/*
   it('Convert the Lead', () => {
+    cy.loginToSalesforceJWT('developerorg1999@gmail.com');
     leadUpdationPage.leadConvertPageWithOpp(leadName);
   });
-*/
 });
