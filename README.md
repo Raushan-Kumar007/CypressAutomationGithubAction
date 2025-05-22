@@ -199,7 +199,7 @@ Feel free to fork the repo and submit pull requests.
 
 ```bash
 # Fork & clone
-git clone https://github.com/yourusername/salesforce-automation.git
+git clone https://github.com/Raushan-Kumar007/CypressAutomationGithubAction
 
 # Create your feature branch
 git checkout -b feature/your-feature
@@ -220,7 +220,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 ## 📞 Contact
 
 - **Name**: Raushan Kumar  
-- **LinkedIn**: [Your LinkedIn Profile](https://linkedin.com/in/raushankumar01)  
-- **GitHub**: [github.com/yourusername](https://github.com/Raushan-Kumar007)
+- **LinkedIn**: [raushankumar01](https://linkedin.com/in/raushankumar01)  
+- **GitHub**: [github.com/Raushan-Kumar007](https://github.com/Raushan-Kumar007)
 
 ---
