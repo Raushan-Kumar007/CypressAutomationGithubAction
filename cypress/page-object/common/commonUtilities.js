@@ -100,7 +100,7 @@ class commonUtilities {
       var day = date.getDate();
       var month = (date.getMonth() + 1).toString();
       var year = date.getFullYear();
-      return `${month}/${day}/${year}`;
+      return `${day}/${month}/${year}`;
     }
   }
   export default commonUtilities;
