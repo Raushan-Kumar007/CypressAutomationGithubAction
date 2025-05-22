@@ -9,6 +9,7 @@ class OpportunityCreationPage{
     oppLeadSource = "//div/button[@aria-label='Lead Source']";
     oppCloseDate = "//input[@name='CloseDate']";
     oppStage = "//div/button[@aria-label='Stage']";
+    oppAmmount = "//input[@name='Amount']";
     saveButton = "//button[@name='SaveEdit']";
     verifyOppHeader = "//div/h1[text() = 'Opportunities']";
     createOpportunity(oppName,oppType,oppLeadSource,oppCloseDate,oppStage){

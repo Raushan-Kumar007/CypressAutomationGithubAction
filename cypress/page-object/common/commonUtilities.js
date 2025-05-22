@@ -1,4 +1,13 @@
 class commonUtilities {
+  /**
+   * This function generates a random number within the given range (inclusive).
+   * @param {number} min - Minimum value (inclusive)
+   * @param {number} max - Maximum value (inclusive)
+   * @returns {number} A random number between min and max
+   */
+  getRandomNumberInRange(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
     /**
      * This function generate random string for specified length
      * @param {number} length length should be any number
