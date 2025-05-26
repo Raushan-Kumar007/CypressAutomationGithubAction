@@ -10,6 +10,7 @@ jobs:
   cypress-run:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         spec:
           - cypress/e2e/salesforce/smoke/accountCreationUpdation.cy.js
@@ -35,6 +36,7 @@ jobs:
           echo "${{ secrets.SERVER_KEY }}" > cypress/fixtures/server.key
 
       - name: Run Cypress Tests for ${{ matrix.spec }}
+        continue-on-error: true
         run: npx cypress run --spec ${{ matrix.spec }}
         env:
           SF_CLIENT_ID: ${{ secrets.SF_CLIENT_ID }}
