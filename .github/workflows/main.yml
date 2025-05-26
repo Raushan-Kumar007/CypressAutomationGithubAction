@@ -17,6 +17,7 @@ jobs:
           - cypress/e2e/salesforce/smoke/contactCreationUpdation.cy.js
           - cypress/e2e/salesforce/smoke/leadCreateUpdateConversion.cy.js
           - cypress/e2e/salesforce/smoke/opportunityCreationUpdation.cy.js
+          - cypress/e2e/salesforce/smoke/caseCreationUpdation.cy.js
 
     steps:
       - name: Checkout Code
