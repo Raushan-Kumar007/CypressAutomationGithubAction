@@ -7,34 +7,44 @@ on:
     branches: [master]
 
 jobs:
-  test:
+  cypress-run:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        spec:
+          - cypress/e2e/salesforce/smoke/accountCreationUpdation.cy.js
+          - cypress/e2e/salesforce/smoke/contactCreationUpdation.cy.js
+          - cypress/e2e/salesforce/smoke/leadCreateUpdateConversion.cy.js
+          - cypress/e2e/salesforce/smoke/opportunityCreationUpdation.cy.js
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: 20
 
-      - run: npm ci
+      - name: Install Dependencies
+        run: npm ci
 
       - name: Restore server.key in correct path
         run: |
           mkdir -p cypress/fixtures
           echo "${{ secrets.SERVER_KEY }}" > cypress/fixtures/server.key
 
-      - name: Run Cypress tests
-        run: npx cypress run
+      - name: Run Cypress Tests for ${{ matrix.spec }}
+        run: npx cypress run --spec ${{ matrix.spec }}
         env:
           SF_CLIENT_ID: ${{ secrets.SF_CLIENT_ID }}
           SF_USERNAME: ${{ secrets.SF_USERNAME }}
 
-      - name: Upload test artifacts if Cypress fails
+      - name: Upload Artifacts on Failure - ${{ matrix.spec }}
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: cypress-artifacts
+          name: cypress-artifacts-${{ matrix.spec }}
           path: |
             cypress/screenshots
             cypress/videos
